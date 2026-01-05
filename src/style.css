@@ -1,13 +1,15 @@
 :root {
-    --bg-color: #000000;
-    --card-bg: #121212;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0a0;
-    --accent-color: #ffffff;
-    --border-color: #333333;
-    --button-bg: #1e1e1e;
-    --button-hover: #2a2a2a;
+    --bg-color: #f8f9fa;
+    /* Light background */
+    --card-bg: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --accent-color: #11998e;
+    /* Green-ish teal */
+    --border-radius: 20px;
     --font-main: 'Outfit', sans-serif;
+    --cover-gradient: linear-gradient(to right, #134e5e, #71b280);
+    /* Dark Green/Nature vibe */
 }
 
 * {
@@ -23,274 +25,204 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    /* Center card on desktop */
-    padding: 20px;
 }
 
-/* Background Animated Blobs - Subtle */
-.background-effects {
-    position: fixed;
-    top: 0;
-    left: 0;
+#app {
     width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    opacity: 0.6;
-}
-
-.blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    animation: float 15s infinite ease-in-out;
-}
-
-.blob-1 {
-    width: 400px;
-    height: 400px;
-    background: #4a1c57;
-    /* Deep purple */
-    top: -10%;
-    left: -10%;
-}
-
-.blob-2 {
-    width: 350px;
-    height: 350px;
-    background: #7a1e36;
-    /* Deep red */
-    bottom: -10%;
-    right: -10%;
-    animation-delay: 5s;
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(20px);
-    }
-}
-
-/* Main Card */
-.main-card {
-    width: 100%;
-    max-width: 414px;
-    /* Mobile width */
+    max-width: 480px;
     background: var(--card-bg);
-    border-radius: 35px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
-    position: relative;
-    border: 1px solid #222;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
 }
 
-/* Cover Image */
-.cover-image {
-    height: 140px;
+/* Cover Section */
+.header-cover {
     width: 100%;
-    background: linear-gradient(135deg, #2c2c2c 0%, #000000 100%);
+    height: 180px;
+    background: var(--cover-gradient);
+    /* Semicircle/Curved Bottom Effect */
+    border-bottom-left-radius: 50% 30px;
+    border-bottom-right-radius: 50% 30px;
     position: relative;
 }
 
-/* Optional: Add a pattern or texture to cover if desired */
-.cover-image::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: radial-gradient(#ffffff 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.05;
-}
-
-.card-content {
-    padding: 0 24px 30px;
-    position: relative;
+.content-card {
+    padding: 0 1.5rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Profile Image */
-.profile-image-container {
-    width: 110px;
-    height: 110px;
-    margin-top: -55px;
-    /* Pull up half way */
+/* Profile Section */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.profile-image-wrapper {
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    border: 6px solid var(--card-bg);
-    /* Cutout effect */
     background: var(--card-bg);
+    /* Match body bg for the border effect */
+    padding: 5px;
+    /* Creates the space between image and outer border if needed, or we use border */
+    /* The User requested "bordes alrededor de la foto" */
+    border: 6px solid var(--card-bg);
+    margin-top: -65px;
+    /* Pull up to overlap cover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 10;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .profile-image {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
     object-fit: cover;
+    border-radius: 50%;
 }
 
-/* Header Info */
 .profile-name {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
-    margin-top: 12px;
-    margin-bottom: 4px;
+    margin-top: 1rem;
+    color: var(--text-primary);
 }
 
 .profile-bio {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
-/* Social Row */
+/* Social Icons */
 .social-icons-row {
     display: flex;
-    gap: 20px;
-    margin-bottom: 25px;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 .social-icons-row a {
     color: var(--text-primary);
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     transition: transform 0.2s, color 0.2s;
 }
 
 .social-icons-row a:hover {
-    transform: scale(1.1);
-    color: #ccc;
+    transform: translateY(-2px);
+    color: var(--accent-color);
 }
 
 /* Stats Grid */
-.stats-row {
+.stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 1rem;
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
 }
 
 .stat-item {
-    background: var(--button-bg);
-    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    /* Slightly darker than card */
     border-radius: 16px;
     text-align: center;
-    border: 1px solid var(--border-color);
 }
 
 .stat-number {
-    display: block;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 4px;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .stat-label {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-top: 4px;
 }
 
 /* Links List */
 .links-list {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
+    width: 100%;
 }
 
 .link-item {
     display: flex;
     align-items: center;
-    background: var(--button-bg);
-    color: var(--text-primary);
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    padding: 1rem;
+    border-radius: 50px;
+    /* Pillow shape buttons like reference? Or rounded? Ref has rectangle-ish. I'll stick to rounded */
     text-decoration: none;
-    padding: 16px 20px;
-    border-radius: 14px;
-    /* Slightly squarer than pill */
-    border: 1px solid var(--border-color);
+    color: var(--text-primary);
     transition: all 0.2s ease;
-    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 }
 
 .link-item:hover {
-    background: var(--button-hover);
-    border-color: #444;
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border-color: var(--accent-color);
 }
 
 .icon-wrapper {
-    font-size: 1.2rem;
-    width: 30px;
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-right: 12px;
-    color: var(--text-secondary);
-}
-
-/* Brand colors on hover for icons if desired */
-.link-item:hover .icon-wrapper.whatsapp {
-    color: #25d366;
-}
-
-.link-item:hover .icon-wrapper.facebook {
-    color: #1877f2;
-}
-
-.link-item:hover .icon-wrapper.tiktok {
-    color: #fe2C55;
-}
-
-.link-item:hover .icon-wrapper.youtube {
-    color: #ff0000;
+    width: 32px;
+    height: 32px;
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
 }
 
 .link-text {
     flex: 1;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.95rem;
 }
 
 .link-arrow {
+    opacity: 0.3;
+}
+
+/* Specific styling for brand colors in icons if needed */
+.whatsapp {
+    color: #25d366;
+}
+
+.facebook {
+    color: #1877f2;
+}
+
+.tiktok {
+    color: #000000;
+}
+
+.youtube {
+    color: #ff0000;
+}
+
+.footer {
+    margin-top: 2rem;
     font-size: 0.8rem;
     color: var(--text-secondary);
-    opacity: 0.7;
-}
-
-/* Footer */
-.footer {
-    margin-top: 30px;
-    color: var(--text-secondary);
-    font-size: 0.75rem;
     text-align: center;
-    opacity: 0.5;
-}
-
-/* Responsive */
-@media (max-width: 400px) {
-    .main-card {
-        border-radius: 0;
-        min-height: 100vh;
-        box-shadow: none;
-        border: none;
-    }
-
-    body {
-        padding: 0;
-    }
+    opacity: 0.7;
 }
