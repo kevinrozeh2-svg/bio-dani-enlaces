@@ -1,15 +1,12 @@
 :root {
-    --bg-color: #f8f9fa;
-    /* Light background */
-    --card-bg: #ffffff;
-    --text-primary: #1a1a1a;
-    --text-secondary: #666666;
-    --accent-color: #11998e;
-    /* Green-ish teal */
-    --border-radius: 20px;
+    --bg-color: #0f0f0f;
+    --text-primary: #ffffff;
+    --text-secondary: #aaaaaa;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-hover: rgba(255, 255, 255, 0.12);
+    --primary-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     --font-main: 'Outfit', sans-serif;
-    --cover-gradient: linear-gradient(to right, #134e5e, #71b280);
-    /* Dark Green/Nature vibe */
 }
 
 * {
@@ -23,61 +20,95 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     min-height: 100vh;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
+    position: relative;
+}
+
+/* Background Animated Blobs */
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 15s infinite ease-in-out;
+}
+
+.blob-1 {
+    width: 300px;
+    height: 300px;
+    background: #7b2cbf;
+    top: -50px;
+    left: -50px;
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    width: 400px;
+    height: 400px;
+    background: #ff006e;
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 5s;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, 50px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
 }
 
 #app {
     width: 100%;
     max-width: 480px;
-    background: var(--card-bg);
-    min-height: 100vh;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
+    padding: 2rem 1.5rem;
 }
 
-/* Cover Section */
-.header-cover {
-    width: 100%;
-    height: 180px;
-    background: var(--cover-gradient);
-    /* Semicircle/Curved Bottom Effect */
-    border-bottom-left-radius: 50% 30px;
-    border-bottom-right-radius: 50% 30px;
-    position: relative;
-}
-
-.content-card {
-    padding: 0 1.5rem 2rem;
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2rem;
 }
 
-/* Profile Section */
-.profile-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Header */
+.profile-header {
+    text-align: center;
     width: 100%;
-    margin-bottom: 2rem;
 }
 
-.profile-image-wrapper {
+.profile-image-container {
     width: 130px;
     height: 130px;
-    border-radius: 50%;
-    background: var(--card-bg);
-    /* Match body bg for the border effect */
+    margin: 0 auto 1.5rem;
     padding: 5px;
-    /* Creates the space between image and outer border if needed, or we use border */
-    /* The User requested "bordes alrededor de la foto" */
-    border: 6px solid var(--card-bg);
-    margin-top: -65px;
-    /* Pull up to overlap cover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    background: var(--card-bg);
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 .profile-image {
@@ -85,47 +116,56 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .profile-name {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    margin-top: 1rem;
-    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
 }
 
 .profile-bio {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    font-weight: 400;
-    margin-bottom: 1rem;
+    font-weight: 300;
 }
 
-/* Social Icons */
+/* Social Row */
 .social-icons-row {
     display: flex;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
+    justify-content: center;
+    gap: 1.8rem;
+    margin-top: 1.5rem;
 }
 
 .social-icons-row a {
     color: var(--text-primary);
-    font-size: 1.4rem;
-    transition: transform 0.2s, color 0.2s;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    opacity: 0.7;
 }
 
 .social-icons-row a:hover {
-    transform: translateY(-2px);
-    color: var(--accent-color);
+    transform: translateY(-5px);
+    color: #fff;
+    opacity: 1;
 }
 
-/* Stats Grid */
-.stats-grid {
+/* Stats Row - 2x2 Grid */
+.stats-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     width: 100%;
-    margin-bottom: 2rem;
 }
 
 .stat-item {
@@ -133,96 +173,121 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
-    background: #f8f9fa;
-    /* Slightly darker than card */
-    border-radius: 16px;
     text-align: center;
 }
 
 .stat-number {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--text-primary);
+    margin-bottom: 0.2rem;
 }
 
 .stat-label {
     font-size: 0.75rem;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 4px;
+    letter-spacing: 1px;
+    line-height: 1.2;
 }
 
 /* Links List */
 .links-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     width: 100%;
 }
 
 .link-item {
     display: flex;
     align-items: center;
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    padding: 1rem;
-    border-radius: 50px;
-    /* Pillow shape buttons like reference? Or rounded? Ref has rectangle-ish. I'll stick to rounded */
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 1.1rem;
+    border-radius: 18px;
     text-decoration: none;
     color: var(--text-primary);
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .link-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    border-color: var(--accent-color);
+    background: var(--card-hover);
+    transform: scale(1.03);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    margin-right: 0.8rem;
-    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+    font-size: 1.3rem;
+}
+
+/* Icon Colors */
+.whatsapp i {
+    color: #25d366;
+}
+
+.facebook i {
+    color: #1877f2;
+}
+
+.tiktok i {
+    color: #ffffff;
+}
+
+.youtube i {
+    color: #ff0000;
 }
 
 .link-text {
     flex: 1;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .link-arrow {
-    opacity: 0.3;
+    opacity: 0.4;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
 }
 
-/* Specific styling for brand colors in icons if needed */
-.whatsapp {
-    color: #25d366;
+.link-item:hover .link-arrow {
+    opacity: 1;
+    transform: translateX(3px);
 }
 
-.facebook {
-    color: #1877f2;
-}
-
-.tiktok {
-    color: #000000;
-}
-
-.youtube {
-    color: #ff0000;
-}
-
+/* Footer */
 .footer {
     margin-top: 2rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
+    opacity: 0.5;
     text-align: center;
-    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+    #app {
+        padding: 1.5rem 1rem;
+    }
+
+    .profile-name {
+        font-size: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.1rem;
+    }
+
+    .link-text {
+        font-size: 0.9rem;
+    }
 }
